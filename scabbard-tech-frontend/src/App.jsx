@@ -1,6 +1,8 @@
 import CardNav from './components/CardNav.jsx';
-import GradientBlinds from './components/hero.jsx';
+import Ballpit from './components/hero.jsx'; // Ballpit is the default export
 import BlurText from './components/BlurText.jsx';
+import LogoLoopSection from './components/LogoLoopSection';
+import WhyChooseUs from './components/WhyChooseUs';
 import './App.css';
 
 // Add this to your global CSS (App.css or index.css):
@@ -43,39 +45,54 @@ function App() {
 	return (
 		<div
 			style={{
-				position: 'fixed',
-				inset: 0,
-				width: '100vw',
-				height: '100vh',
-				overflow: 'hidden',
 				fontFamily: "'Inter', 'Montserrat', 'Nunito', 'Helvetica Neue', Arial, sans-serif",
 			}}
 		>
-			<CardNav logo="/scabbardtech.png" items={navItems} />
-			<div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
-				<BlurText
-					text="WELCOME TO"
-					className="text-4xl md:text-6xl font-semibold uppercase tracking-wide mb-2 text-white"
-					delay={100}
-					animateBy="words"
+			{/* Hero Section: Takes up the full screen height */}
+			<div className="h-screen relative" style={{ background: '#000' }}>
+				<CardNav logo="/scabbardtech.png" items={navItems} />
+				<Ballpit
+					className="absolute inset-0 w-full h-full"
+					followCursor={true}
+					colors={['#FF9FFC', '#5227FF', '#B19EEF', '#00FFD0', '#FFD700']} // <-- Change/add colors here
 				/>
-				<BlurText
-					text="Scabbard tech #1 Digital Marketing Agency in Guwahati, Assam"
-					className="text-2xl md:text-3xl font-bold mb-2 text-white"
-					delay={150}
-					animateBy="words"
-				/>
-				<BlurText
-					text="Your trusted partner for innovative digital marketing solutions"
-					className="text-xs md:text-base font-normal mt-2 text-white opacity-80"
-					delay={50}
-					animateBy="words"
-				/>
+				<div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
+					<BlurText
+						text="WELCOME TO"
+						className="text-4xl md:text-6xl font-semibold uppercase tracking-wide mb-2 text-white"
+						delay={100}
+						animateBy="words"
+					/>
+					<BlurText
+						text="Scabbard tech #1 Digital Marketing Agency in Guwahati, Assam"
+						className="text-2xl md:text-3xl font-bold mb-2 text-white"
+						delay={150}
+						animateBy="words"
+					/>
+					<BlurText
+						text="Your trusted partner for innovative digital marketing solutions"
+						className="text-xs md:text-base font-normal mt-2 text-white opacity-80"
+						delay={50}
+						animateBy="words"
+					/>
+					<div className="flex gap-4 mt-8 pointer-events-auto">
+						<button className="px-6 py-2 rounded-full border border-white bg-white text-black font-semibold backdrop-blur-md hover:bg-white hover:bg-opacity-10 transition">
+							7002390792
+						</button>
+						<button className="px-6 py-2 rounded-full border border-white bg-transparent text-white font-semibold backdrop-blur-md hover:bg-white hover:bg-opacity-10 transition">
+							Get Free SEO Audit
+						</button>
+						<button className="px-6 py-2 rounded-full border border-white bg-white text-black font-semibold backdrop-blur-md hover:bg-white hover:bg-opacity-10 transition">
+							ABOUT US
+						</button>
+					</div>
+				</div>
 			</div>
-			<GradientBlinds
-				gradientColors={['#511aa3ff', '#420d91ff', '#B19EEF']}
-				className="w-full h-full"
-			/>
+			{/* Logo Loop Section */}
+			<LogoLoopSection />
+
+			{/* Why Choose Us Section */}
+			<WhyChooseUs />
 		</div>
 	);
 }
