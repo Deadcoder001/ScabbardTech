@@ -3,7 +3,7 @@ import MetaBalls from './MetaBalls';
 
 export default function WhyChooseUs() {
   return (
-    <section className="w-full bg-gray-100 py-16 flex items-center justify-center">
+    <section className="w-full bg-white py-16 flex items-center justify-center">
       <div className="flex flex-row max-w-5xl w-full px-6 gap-12">
         <div className="flex items-center justify-center flex-1">
         <MetaBalls

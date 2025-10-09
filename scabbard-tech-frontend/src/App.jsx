@@ -3,6 +3,10 @@ import Ballpit from './components/hero.jsx'; // Ballpit is the default export
 import BlurText from './components/BlurText.jsx';
 import LogoLoopSection from './components/LogoLoopSection';
 import WhyChooseUs from './components/WhyChooseUs';
+import IndustryExpertise from './components/IndustryExpertise';
+import ServicesSection from './components/ServicesSection';
+import WhyScabbardTech from './components/WhyScabbardTech';
+
 import './App.css';
 
 // Add this to your global CSS (App.css or index.css):
@@ -79,7 +83,7 @@ function App() {
 						<button className="px-6 py-2 rounded-full border border-white bg-white text-black font-semibold backdrop-blur-md hover:bg-white hover:bg-opacity-10 transition">
 							7002390792
 						</button>
-						<button className="px-6 py-2 rounded-full border border-white bg-transparent text-white font-semibold backdrop-blur-md hover:bg-white hover:bg-opacity-10 transition">
+						<button className="px-6 py-2 rounded-full border border-white bg-transparent text-white font-semibold backdrop-blur-md hover:bg-purple-500 hover:bg-opacity-10 transition">
 							Get Free SEO Audit
 						</button>
 						<button className="px-6 py-2 rounded-full border border-white bg-white text-black font-semibold backdrop-blur-md hover:bg-white hover:bg-opacity-10 transition">
@@ -93,6 +97,15 @@ function App() {
 
 			{/* Why Choose Us Section */}
 			<WhyChooseUs />
+
+			{/* Industry Expertise Section */}
+			<IndustryExpertise />
+
+			{/* Services Section */}
+			<ServicesSection />
+
+			{/* Why Scabbard Tech Section */}
+			<WhyScabbardTech />
 		</div>
 	);
 }
