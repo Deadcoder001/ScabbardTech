@@ -6,6 +6,10 @@ import WhyChooseUs from './components/WhyChooseUs';
 import IndustryExpertise from './components/IndustryExpertise';
 import ServicesSection from './components/ServicesSection';
 import WhyScabbardTech from './components/WhyScabbardTech';
+import CreativeSolutions from './components/CreativeSolutions.jsx';
+import OurProcess from './components/OurProcess.jsx';
+import StartProject from './components/StartProject.jsx';
+import BrandDevelopment from './components/BrandDevelopment.jsx';
 
 import './App.css';
 
@@ -98,6 +102,7 @@ function App() {
 			{/* Why Choose Us Section */}
 			<WhyChooseUs />
 
+
 			{/* Industry Expertise Section */}
 			<IndustryExpertise />
 
@@ -106,6 +111,18 @@ function App() {
 
 			{/* Why Scabbard Tech Section */}
 			<WhyScabbardTech />
+
+			{/* Creative Solutions Section */}
+			<CreativeSolutions />
+
+			{/* Our Process Section */}
+			<OurProcess />
+
+			{/* Start Project Section */}
+			<StartProject />
+
+			{/* Brand Development Section */}
+			<BrandDevelopment />
 		</div>
 	);
 }
