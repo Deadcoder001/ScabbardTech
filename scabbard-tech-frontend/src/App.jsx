@@ -8,8 +8,11 @@ import ServicesSection from './components/ServicesSection';
 import WhyScabbardTech from './components/WhyScabbardTech';
 import CreativeSolutions from './components/CreativeSolutions.jsx';
 import OurProcess from './components/OurProcess.jsx';
-import StartProject from './components/StartProject.jsx';
+import OurWork from './components/OurWork.jsx';
 import BrandDevelopment from './components/BrandDevelopment.jsx';
+import MarketingAdvertising from './components/MarketingAdvertising.jsx';
+import ScrollToTopButton from './components/ScrollToTopButton.jsx';
+import StartProject from './components/StartProject.jsx';
 
 import './App.css';
 
@@ -123,6 +126,16 @@ function App() {
 
 			{/* Brand Development Section */}
 			<BrandDevelopment />
+
+			{/* Marketing & Advertising Section */}
+			<MarketingAdvertising />
+
+			{/* Our Work Section */}
+            <OurWork />
+
+			{/* Scroll to Top Button */}
+			<ScrollToTopButton />
+
 		</div>
 	);
 }
