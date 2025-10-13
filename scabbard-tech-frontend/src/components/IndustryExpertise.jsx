@@ -2,6 +2,13 @@ import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+// --- Image Imports ---
+// TODO: Please verify these file paths match your images in the src/assets/ui/ folder
+import healthBg from '../assets/ui/health-care.jpg';
+import retailBg from '../assets/ui/retail-ecommerce.jpg';
+import realEstateBg from '../assets/ui/real-estate.jpg';
+import educationBg from '../assets/ui/education.jpg';
+
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,19 +24,13 @@ const IconRestaurant = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg
 const IconPin = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>;
 
 
-// UPDATED: Added a 'description' property to each industry object
+// UPDATED: Added image property to each industry
 const industries = [
-  { name: "FOR HEALTH CARE INDUSTRIES", icon: <IconHealth className="w-14 h-14" />, description: "Tailored digital strategies to connect with patients and build trust in the healthcare sector." },
-  { name: "FOR HOSPITALITY BUSINESS", icon: <IconBuilding className="w-14 h-14" />, description: "Enhancing guest experiences from booking to checkout with seamless digital solutions." },
-  { name: "FOR SUPER MARKETS", icon: <IconCart className="w-14 h-14" />, description: "Driving foot traffic and online sales through targeted local SEO and promotions." },
-  { name: "FOR RETAIL BUSINESSES", icon: <IconCart className="w-14 h-14" />, description: "Creating omnichannel retail experiences that convert browsers into loyal customers." },
-  { name: "FOR CONSTRUCTION COMPANIES", icon: <IconCompany className="w-14 h-14" />, description: "Building a strong online foundation to showcase projects and attract high-value contracts." },
-  { name: "FOR REAL ESTATE BUSINESS", icon: <IconBuilding className="w-14 h-14" />, description: "Utilizing virtual tours and digital campaigns to close deals faster in a competitive market." },
-  { name: "FOR EDUCATIONAL INSTITUTES", icon: <IconEducation className="w-14 h-14" />, description: "Engaging students and parents with compelling content and streamlined admissions processes." },
-  { name: "FOR TOUR AND TRAVEL AGENCIES", icon: <IconTravel className="w-14 h-14" />, description: "Inspiring wanderlust and driving bookings with immersive content and easy-to-use platforms." },
-  { name: "FOR ECOMMERCE", icon: <IconCart className="w-14 h-14" />, description: "Optimizing online stores for maximum conversion, from product pages to payment gateways." },
-  { name: "FOR BARS & RESTAURANT", icon: <IconRestaurant className="w-14 h-14" />, description: "Attracting diners with mouth-watering visuals, online ordering, and reservation systems." },
-  { name: "FOR LOCAL BUSINESS BASED IN ASSAM", icon: <IconPin className="w-14 h-14" />, description: "Connecting with the local community through culturally relevant and geographically targeted marketing." },
+  { name: "FOR HEALTH CARE INDUSTRIES", icon: <IconHealth className="w-14 h-14" />, description: "Tailored digital strategies to connect with patients and build trust in the healthcare sector.", image: healthBg },
+  { name: "FOR RETAIL & ECOMMERCE", icon: <IconCart className="w-14 h-14" />, description: "Creating omnichannel experiences that convert browsers into loyal customers, both online and in-store.", image: retailBg },
+  { name: "FOR REAL ESTATE BUSINESS", icon: <IconBuilding className="w-14 h-14" />, description: "Utilizing virtual tours and digital campaigns to close deals faster in a competitive market.", image: realEstateBg },
+  { name: "FOR EDUCATIONAL INSTITUTES", icon: <IconEducation className="w-14 h-14" />, description: "Engaging students and parents with compelling content and streamlined admissions processes.", image: educationBg },
+  
 ];
 
 const IndustryExpertise = () => {
@@ -77,8 +78,6 @@ const IndustryExpertise = () => {
     return () => ctx.revert();
   }, []);
   
-  const abstractPattern = `url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='10' cy='10' r='1' fill='%23f3f4f6'/%3e%3c/svg%3e")`;
-
   return (
     <section 
       ref={sectionRef} 
@@ -117,17 +116,22 @@ const IndustryExpertise = () => {
               style={{ width: '450px' }} // UPDATED: Increased card width
             >
               <div
-                className="card-content py-12 px-8 flex flex-col items-center justify-center bg-white border border-gray-200 rounded-2xl shadow-sm transition-all duration-500 ease-in-out"
-                style={{ backgroundImage: abstractPattern, minHeight: '320px' }} // ADDED: min-height for consistent base size
+                className="card-content py-12 px-8 flex flex-col items-center justify-center bg-white border border-gray-700 rounded-2xl shadow-lg transition-all duration-500 ease-in-out relative overflow-hidden"
+                style={{ 
+                  backgroundImage: `linear-gradient(to top, rgba(21, 11, 32, 0.8), rgba(47, 17, 66, 0.6)), url(${industry.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  minHeight: '320px' 
+                }}
               >
-                <div className="icon-wrapper text-gray-400 transition-colors duration-400 mb-6">
+                <div className="icon-wrapper text-gray-300 transition-colors duration-400 mb-6">
                   {industry.icon}
                 </div>
-                <h3 className="text-xl md:text-2xl font-normal text-gray-600 group-hover:text-gray-900 text-center transition-colors duration-300">
+                <h3 className="text-xl md:text-2xl font-normal text-white text-center transition-colors duration-300">
                   {industry.name}
                 </h3>
                 {/* ADDED: Description paragraph */}
-                <p className="description text-center text-gray-500 max-h-0 opacity-0 transition-all duration-500 ease-in-out overflow-hidden">
+                <p className="description text-center text-gray-200 max-h-0 opacity-0 transition-all duration-500 ease-in-out overflow-hidden">
                   {industry.description}
                 </p>
               </div>
@@ -151,7 +155,7 @@ const IndustryExpertise = () => {
           box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
         .industry-item.is-active .icon-wrapper {
-          color: #8b5cf6; /* purple-600 */
+          color: #ffffff;
         }
         /* Style to reveal the description */
         .industry-item.is-active .description {
