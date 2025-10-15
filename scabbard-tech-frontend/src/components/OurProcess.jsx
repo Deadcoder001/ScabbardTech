@@ -53,7 +53,7 @@ const OurProcess = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 40%",
-          end: "bottom 30%",
+          end: "bottom 50%",
           scrub: 1,
         }
       });

@@ -1,6 +1,21 @@
 @import "tailwindcss";
 
 
+/* CSS Reset */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #fff; /* Or your site's default background */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+
 /* New Footer Styles */
 .footer-section {
   height: 75vh;

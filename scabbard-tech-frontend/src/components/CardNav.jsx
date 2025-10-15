@@ -1,10 +1,8 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
 // use your own icon import if react-icons is not available
 import { GoArrowUpRight } from 'react-icons/go';
-
-
 
 const CardNav = ({
   logo,
@@ -16,13 +14,43 @@ const CardNav = ({
   menuColor = '#ffffff',
   buttonBgColor = 'rgba(255, 255, 255, 0.2)',
   buttonTextColor = '#ffffff',
-  onQuoteClick // <-- add this prop
+  onQuoteClick
 }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showNav, setShowNav] = useState(true);
+  const lastScrollY = useRef(0);
   const navRef = useRef(null);
   const cardsRef = useRef([]);
   const tlRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Always show nav if the menu is expanded
+      if (isExpanded) {
+        setShowNav(true);
+      } else {
+        // Show nav if scrolling up or at the very top
+        if (currentScrollY < lastScrollY.current || currentScrollY < 10) {
+          setShowNav(true);
+        } else {
+          // Hide nav if scrolling down
+          setShowNav(false);
+        }
+      }
+
+      setIsScrolled(currentScrollY > 10);
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isExpanded]);
 
   const calculateHeight = () => {
     const navEl = navRef.current;
@@ -136,30 +164,26 @@ const CardNav = ({
     if (el) cardsRef.current[i] = el;
   };
 
-  const navLinks = [
-    { label: 'Home', href: '/' },
-        { label: 'About', href: '/about' },
-    { label: 'Services', href: '/services' },
-    { label: 'Contact us', href: '/contact' },
-    { label: 'Career', href: '#' },
-  ];
+  // Determine background color based on scroll state, ignoring expanded state
+  const currentBgColor = isScrolled ? '#000000' : baseColor;
 
   return (
     <div
-      className={`card-nav-container absolute left-1/2 -translate-x-1/2 w-[90%] max-w-[980px] z-[99] top-[1.2em] md:top-[2em] ${className}`}
+      className={`card-nav-container fixed left-1/2 -translate-x-1/2 w-[90%] max-w-[800px] z-[99] transition-all duration-300 ${isScrolled && !isExpanded ? 'top-[1em]' : 'top-[1.2em] md:top-[2em]'} ${className} ${showNav ? 'translate-y-0' : '-translate-y-[150%]'}`}
     >
       <nav
         ref={navRef}
-        className={`card-nav ${isExpanded ? 'open' : ''} block h-[60px] p-0 rounded-xl shadow-md relative overflow-hidden will-change-[height]`}
+        className={`card-nav ${isExpanded ? 'open' : ''} block h-[60px] p-0 rounded-xl relative overflow-hidden will-change-[height] transition-shadow duration-300 ${isScrolled ? 'shadow-lg' : 'shadow-md'}`}
         style={{
-          backgroundColor: baseColor,
+          backgroundColor: currentBgColor,
           backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)'
+          WebkitBackdropFilter: 'blur(16px)',
+          transition: 'background-color 0.3s ease-in-out',
         }}
       >
-        <div className="card-nav-top absolute inset-x-0 top-0 h-[60px] flex items-center justify-between p-2 pl-[1.1rem] z-[2]">
+        <div className="card-nav-top absolute inset-x-0 top-0 h-[60px] flex items-center justify-between p-2 z-[2]">
           <div
-            className={`hamburger-menu ${isHamburgerOpen ? 'open' : ''} group h-full flex flex-col items-center justify-center cursor-pointer gap-[6px] order-2 md:hidden`}
+            className={`hamburger-menu ${isHamburgerOpen ? 'open' : ''} group h-full flex flex-col items-center justify-center cursor-pointer gap-[6px]`}
             onClick={toggleMenu}
             role="button"
             aria-label={isExpanded ? 'Close menu' : 'Open menu'}
@@ -178,49 +202,52 @@ const CardNav = ({
             />
           </div>
 
-          <div className="logo-container flex items-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 order-1 md:order-none">
+          <div className="logo-container flex-1 flex justify-center items-center">
             <Link to="/">
-              <img src={logo} alt={logoAlt} className="logo h-[36px]" />
+              <img src={logo} alt={logoAlt} className="logo h-[28px]" />
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center gap-6 absolute left-8">
-            {navLinks.slice(0, 3).map(link => (
-              <a key={link.label} href={link.href} className="text-sm font-medium transition-colors hover:opacity-75" style={{ color: buttonTextColor }}>{link.label}</a>
-            ))}
-          </div>
-
-          <div className="hidden md:flex items-center gap-6 absolute right-8">
-             {navLinks.slice(3).map(link => (
-              <a key={link.label} href={link.href} className="text-sm font-medium transition-colors hover:opacity-75" style={{ color: buttonTextColor }}>{link.label}</a>
-            ))}
-            <button
-              type="button"
-              className="card-nav-cta-button inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] px-4 py-2 font-medium cursor-pointer transition-colors duration-300"
-              style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
-              onClick={onQuoteClick}
-            >
-              Get a Quote
-            </button>
-          </div>
+          <button
+            type="button"
+            className="card-nav-cta-button hidden md:inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] px-4 h-full font-medium cursor-pointer transition-colors duration-300"
+             style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
+            onClick={onQuoteClick}
+          >
+            Get a Quote
+          </button>
         </div>
 
         <div
-          className={`card-nav-content absolute left-0 right-0 top-[60px] bottom-0 p-4 flex flex-col items-stretch gap-4 justify-start z-[1] ${
+          className={`card-nav-content absolute left-0 right-0 top-[60px] bottom-0 p-2 flex flex-col items-stretch gap-2 justify-start z-[1] ${
             isExpanded ? 'visible pointer-events-auto' : 'invisible pointer-events-none'
-          } md:hidden`}
+          } md:flex-row md:items-end md:gap-[12px]`}
           aria-hidden={!isExpanded}
         >
-          {navLinks.map((link, idx) => (
-             <a 
-              key={link.label} 
-              href={link.href} 
+          {(items || []).slice(0, 3).map((item, idx) => (
+            <div
+              key={`${item.label}-${idx}`}
+              className="nav-card select-none relative flex flex-col gap-2 p-[12px_16px] rounded-[calc(0.75rem-0.2rem)] min-w-0 flex-[1_1_auto] h-auto min-h-[60px] md:h-full md:min-h-0 md:flex-[1_1_0%]"
               ref={setCardRef(idx)}
-              className="text-lg font-semibold p-3 text-center rounded-lg transition-colors"
-              style={{ color: buttonTextColor, backgroundColor: buttonBgColor }}
+              style={{ backgroundColor: item.bgColor, color: item.textColor }}
             >
-              {link.label}
-            </a>
+              <div className="nav-card-label font-normal tracking-[-0.5px] text-[18px] md:text-[22px]">
+                {item.label}
+              </div>
+              <div className="nav-card-links mt-auto flex flex-col gap-[2px]">
+                {item.links?.map((lnk, i) => (
+                  <a
+                    key={`${lnk.label}-${i}`}
+                    className="nav-card-link inline-flex items-center gap-[6px] no-underline cursor-pointer transition-opacity duration-300 hover:opacity-75 text-[15px] md:text-[16px]"
+                    href={lnk.href}
+                    aria-label={lnk.ariaLabel}
+                  >
+                    <GoArrowUpRight className="nav-card-link-icon shrink-0" aria-hidden="true" />
+                    {lnk.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </nav>

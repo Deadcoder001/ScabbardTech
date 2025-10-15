@@ -1,107 +1,85 @@
 import React from 'react';
-import BlurText from './BlurText';
+import { Link } from 'react-router-dom';
+import websitePreviewGif from '../assets/gallery/SSHg123.gif';
 
-// --- Image Imports ---
-import logoDesignImg from '../assets/gallery/Scabbardtech-Portfolio-4-e1736231191248.png';
-import mascotDesignImg from '../assets/gallery/Scabbardtech-Portfolio-4-e1736231191248.png';
-import packageDesignImg from '../assets/gallery/Scabbardtech-Portfolio-4-e1736231191248.png';
-import trainingProgramImg from '../assets/gallery/Scabbardtech-Portfolio-4-e1736231191248.png';
-import risingSunFestImg from '../assets/gallery/Scabbardtech-Portfolio-4-e1736231191248.png';
-import axomBeejImg from '../assets/gallery/Scabbardtech-Portfolio-4-e1736231191248.png';
+// --- Direct imports for this component's preview ---
+import logoImage from '../assets/gallery/Scabbardtech-Portfolio-4-e1736231191248.png';
+import mascotImage from '../assets/gallery/Scabbardtech-Portfolio-8-e1736232374904.png';
+import packagingImage from '../assets/gallery/Scabbardtech-Portfolio-10-e1736232954573.png';
 
-
-const works = [
-  {
-    id: 1,
-    category: 'Logo Design',
-    title: 'Modern Corporate Branding',
-    image: logoDesignImg,
-    featured: true,
-  },
-  {
-    id: 2,
-    category: 'Mascot Design',
-    title: 'Character for Startup',
-    image: mascotDesignImg,
-    featured: true,
-  },
-  {
-    id: 3,
-    category: 'Social Media & Package Design',
-    title: 'E-commerce Packaging',
-    image: packageDesignImg,
-    featured: true,
-  },
-  {
-    id: 4,
-    category: 'Strategic Campaigns',
-    title: 'Digital Marketing Training',
-    client: 'Directorate of Commerce and Industries, Meghalaya',
-    stats: '30+ Participants, 36 Sessions',
-    image: trainingProgramImg,
-    featured: true,
-  },
-  {
-    id: 5,
-    category: 'Strategic Campaigns',
-    title: 'Branding for Rising Sun Festival 2023',
-    client: 'Directorate of Horticulture and Food Processing, Assam',
-    stats: '10,000+ Footfall, 3 Days',
-    image: risingSunFestImg,
-    featured: false, // This won't show on the homepage
-  },
-  {
-    id: 6,
-    category: 'Strategic Campaigns',
-    title: 'Innovative Branding for Axom Beej',
-    client: 'Assam Seeds Corporation Limited',
-    image: axomBeejImg,
-    featured: false, // This won't show on the homepage
-  },
+// --- Data for the preview ---
+const workToShow = [
+  { src: logoImage, category: 'Logo Design' },
+  { src: mascotImage, category: 'Mascot Design' },
+  { src: packagingImage, category: 'Packaging Design' },
 ];
 
-const WorkCard = ({ work }) => (
-  <div className="group relative overflow-hidden rounded-lg shadow-sm bg-gray-100">
-    <img src={work.image} alt={work.title} className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
-    <div className="absolute bottom-0 left-0 p-6">
-      <p className="text-sm font-medium text-purple-300">{work.category}</p>
-      <h3 className="text-xl font-bold text-white mt-1">{work.title}</h3>
-      {work.client && <p className="text-xs text-gray-300 mt-2">{work.client}</p>}
-      {work.stats && <p className="text-xs font-mono text-gray-200 mt-1">{work.stats}</p>}
-    </div>
-  </div>
-);
+// Website data for the preview
+const featuredWebsite = {
+  name: 'Sahitya Sangam',
+  description: 'A full ecommerce + online platform for buying and reading Assamese books.',
+  url: 'https://sahityaasangamm.in',
+  screenshot: websitePreviewGif
+};
 
 const OurWork = () => {
-  const featuredWork = works.filter(w => w.featured);
-
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <BlurText
-            text="Discover Our Work"
-            className="text-4xl md:text-5xl font-medium text-gray-900"
-          />
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-            Top creations by the leading Digital Marketing agency in Assam.
+    <section className="bg-white py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+            A Glimpse of Our Work
+          </h2>
+          <p className="mt-4 text-lg text-gray-600">
+            We take pride in the solutions we've delivered. Here's a peek.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {featuredWork.map(work => (
-            <WorkCard key={work.id} work={work} />
+        {/* Grid for showcasing work */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Featured Website - Spans 2 columns */}
+          <div className="group relative overflow-hidden rounded-lg shadow-xl bg-white lg:col-span-2">
+            <img src={featuredWebsite.screenshot} alt={featuredWebsite.name} className="w-full h-full object-cover object-top" />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                <h3 className="text-xl font-bold text-white">{featuredWebsite.name}</h3>
+                <p className="mt-1 text-sm text-gray-200">{featuredWebsite.description}</p>
+            </div>
+            {/* Hover Overlay */}
+            <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <a
+                href={featuredWebsite.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-purple-600 text-white font-bold px-6 py-3 rounded-full shadow-lg hover:bg-purple-700 transition-transform transform hover:scale-105"
+              >
+                Visit Site
+              </a>
+            </div>
+          </div>
+
+          {/* Gallery Images */}
+          {workToShow.map((item, index) => (
+            <div key={index} className="group relative overflow-hidden rounded-lg shadow-lg">
+              <img
+                src={item.src}
+                alt={item.category}
+                className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end p-4">
+                <p className="text-white font-semibold">{item.category}</p>
+              </div>
+            </div>
           ))}
         </div>
 
+        {/* View All Button */}
         <div className="text-center mt-16">
-          <a 
-            href="/our-works" // This would link to your full gallery page
-            className="inline-block bg-gray-800 text-white font-semibold px-8 py-3 rounded-md shadow-md hover:bg-gray-900 transition-colors duration-300"
+          <Link
+            to="/gallery"
+            className="inline-block bg-purple-600 text-white font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:bg-purple-700 transition-transform transform hover:scale-105"
           >
-            View All Our Works
-          </a>
+            View All Our Work
+          </Link>
         </div>
       </div>
     </section>

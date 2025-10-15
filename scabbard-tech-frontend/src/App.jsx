@@ -8,19 +8,49 @@ import HomePage from './pages/HomePage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ServicesPage from './pages/ServicesPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
+import GalleryPage from './pages/GalleryPage.jsx';
 
 import './App.css';
+
+const navItems = [
+    {
+        label: "About",
+        bgColor: "#0D0716",
+        textColor: "#fff",
+        links: [
+            { label: "Our Story", href: "/about", ariaLabel: "Learn about our story" },
+            { label: "Careers", href: "/career", ariaLabel: "Explore career opportunities" }
+        ]
+    },
+    {
+        label: "What We Do",
+        bgColor: "#170D27",
+        textColor: "#fff",
+        links: [
+            { label: "Services", href: "/services", ariaLabel: "View our services" },
+            { label: "Gallery", href: "/gallery", ariaLabel: "See our work" }
+        ]
+    },
+    {
+        label: "Get In Touch",
+        bgColor: "#271E37",
+        textColor: "#fff",
+        links: [
+            { label: "Contact Us", href: "/contact", ariaLabel: "Get in touch with us" },
+            { label: "LinkedIn", href: "https://www.linkedin.com/company/scabbard-consulting/", ariaLabel: "Find us on LinkedIn" }
+        ]
+    }
+];
 
 function App() {
     const location = useLocation();
     const [quoteOpen, setQuoteOpen] = useState(false);
-    const navItems = [
-        { label: 'Home', href: '/' },
-        { label: 'About', href: '/about' },
-        { label: 'Services', href: '/services' },
-        { label: 'Contact', href: '/contact' },
-        { label: 'Career', href: '/career' },
-    ];
+
+    // Set nav colors to be transparent on all pages
+    const navBaseColor = 'rgba(255, 255, 255, 0.1)';
+    const navMenuColor = '#ffffff';
+    const navButtonBgColor = 'rgba(255, 255, 255, 0.2)';
+    const navButtonTextColor = '#ffffff';
 
     return (
         <div
@@ -28,14 +58,23 @@ function App() {
                 fontFamily: "'Inter', 'Montserrat', 'Nunito', 'Helvetica Neue', Arial, sans-serif",
             }}
         >
-            <CardNav logo="/scabbardtech.png" items={navItems} onQuoteClick={() => setQuoteOpen(true)} />
+            <CardNav 
+                logo="/scabbardtech.png" 
+                items={navItems}
+                onQuoteClick={() => setQuoteOpen(true)}
+                baseColor={navBaseColor}
+                menuColor={navMenuColor}
+                buttonBgColor={navButtonBgColor}
+                buttonTextColor={navButtonTextColor}
+            />
             
             <main>
                 <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route path="/" element={<HomePage setQuoteOpen={setQuoteOpen} />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/gallery" element={<GalleryPage />} />
                     {/* Add other routes here as you create them */}
                 </Routes>
             </main>

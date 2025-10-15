@@ -72,8 +72,21 @@ const Testimonials = () => {
   const extendedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section className="py-24 bg-gray-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-24 bg-gray-50 overflow-hidden relative">
+      {/* Blurred Background Grid */}
+      <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 opacity-25 blur-[1px] pointer-events-none -translate-y-10">
+        {[...Array(30)].map((_, i) => (
+          <div key={i} className="bg-white rounded-xl p-6 h-48 shadow-sm">
+            <div className="h-3 w-1/3 bg-gray-300 rounded mb-3"></div>
+            <div className="h-2 w-full bg-gray-200 rounded mb-2"></div>
+            <div className="h-2 w-full bg-gray-200 rounded mb-2"></div>
+            <div className="h-2 w-3/4 bg-gray-200 rounded"></div>
+            <div className="h-4 w-1/2 bg-gray-300 rounded mt-4"></div>
+          </div>
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16 px-4 sm:px-6 lg:px-8">
           <BlurText
             text="What Our Clients Say"

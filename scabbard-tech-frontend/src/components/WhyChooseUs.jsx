@@ -27,8 +27,8 @@ export default function WhyChooseUs() {
 
   return (
     <section ref={sectionRef} className="w-full bg-white py-16 flex items-center justify-center">
-      <div className="flex flex-row max-w-5xl w-full px-6 gap-12">
-        <div className="flex items-center justify-center flex-1">
+      <div className="flex flex-col md:flex-row max-w-5xl w-full px-6 gap-8 md:gap-12">
+        <div className="flex items-center justify-center flex-1 h-64 md:h-auto">
         <MetaBalls
          color="#000000ff"
           cursorBallColor="#000000ff"
@@ -42,14 +42,14 @@ export default function WhyChooseUs() {
           speed={0.3}
         />
         </div>
-        <div className="flex-1 text-right flex flex-col justify-center">
+        <div className="flex-1 text-center md:text-right flex flex-col justify-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             Why Choose Us?
           </h2>
-          <div className="w-full flex justify-end">
+          <div className="w-full flex justify-center md:justify-end">
             <hr className="w-32 border-gray-300 border-t-2 mb-6" />
           </div>
-          <p className="text-lg md:text-xl text-gray-700 font-medium">
+          <p className="text-lg md:text-xl text-gray-700 font-medium text-left md:text-right">
             Our digital marketing strategies are backed by <span className="highlight-on-scroll-choose">years of experience</span> and a <span className="highlight-on-scroll-choose">proven track record</span> of delivering exceptional results. Whether you’re a startup or an established brand, we <span className="highlight-on-scroll-choose">customize our services</span> to fit your goals and budget. Our focus is on <span className="highlight-on-scroll-choose">driving real value</span> through transparency, measurable outcomes, and a <span className="highlight-on-scroll-choose">client-centric approach</span>.
           </p>
         </div>

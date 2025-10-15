@@ -28,7 +28,7 @@ const services = [
 
 // A simplified card component
 const ServiceCard = ({ title, description, align = 'left' }) => (
-  <div className={`service-card text-${align}`}>
+  <div className={`service-card text-center md:text-${align}`}>
     <h3 className="text-lg font-bold text-gray-800 mb-2">{title}</h3>
     <p className="text-sm text-gray-600">{description}</p>
   </div>
