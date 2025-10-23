@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ServicesPage from './pages/ServicesPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
+import CareersPage from './pages/CareersPage.jsx';
 import GalleryPage from './pages/GalleryPage.jsx';
 
 import './App.css';
@@ -75,6 +76,7 @@ function App() {
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/gallery" element={<GalleryPage />} />
+                    <Route path="/career" element={<CareersPage />} />
                     {/* Add other routes here as you create them */}
                 </Routes>
             </main>

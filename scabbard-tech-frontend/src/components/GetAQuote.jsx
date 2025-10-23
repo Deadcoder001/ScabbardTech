@@ -28,12 +28,13 @@ const GetAQuote = ({ open, setOpen }) => {
     }, 300); // This duration should match your transition duration
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    // TODO: handle form submission (API/email)
-    alert('Thank you for your enquiry!');
-    handleClose(); // Use the new close handler
-  };
+  // Formspree will handle the submission, so the custom handler is no longer needed.
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   // TODO: handle form submission (API/email)
+  //   alert('Thank you for your enquiry!');
+  //   handleClose(); // Use the new close handler
+  // };
 
   if (!open) return null;
 
@@ -59,7 +60,11 @@ const GetAQuote = ({ open, setOpen }) => {
           <p className="text-gray-500 mt-1">Tell us about your project.</p>
         </div>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form 
+          action="https://formspree.io/f/meorbegd"
+          method="POST"
+          className="space-y-6"
+        >
           <div>
             <label className="text-sm font-medium text-gray-600" htmlFor="name">Full Name</label>
             <input type="text" id="name" name="name" required className="mt-1 w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-purple-500 transition-colors" />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import StartProject from '../components/StartProject';
 import Lightbox from '../components/Lightbox';
+import StrategicCampaigns from '../components/StrategicCampaigns';
 import { galleryImages } from '../gallery-data'; // Import local image data
 import websitePreviewGif from '../assets/gallery/SSHg123.gif'; // Import the GIF
 import { GoPlus, GoLinkExternal } from 'react-icons/go'; // Icon for the hover effect
@@ -175,6 +176,8 @@ const GalleryPage = () => {
 
       {/* Lightbox */}
       <Lightbox image={selectedImage} onClose={() => setSelectedImage(null)} />
+
+                <StrategicCampaigns />    
 
       {/* Footer Animation Trigger */}
       <div className="faq-section">

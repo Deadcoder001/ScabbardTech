@@ -43,7 +43,6 @@ const processSteps = [
 const OurProcess = () => {
   const sectionRef = useRef(null);
   const progressBarRef = useRef(null);
-  const stepRefs = useRef([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -52,30 +51,13 @@ const OurProcess = () => {
         scaleX: 1,
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 40%",
+          start: "top 30%",
           end: "bottom 50%",
           scrub: 1,
         }
       });
 
-      // Animate each step
-      stepRefs.current.forEach((step, index) => {
-        gsap.fromTo(step, 
-          { opacity: 0.3, y: 50 }, 
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: step,
-              start: "top 85%",
-              end: "top 50%",
-              toggleActions: "play none none reverse",
-            }
-          }
-        );
-      });
+      // Step animations have been removed.
     }, sectionRef);
 
     return () => ctx.revert();
@@ -108,7 +90,6 @@ const OurProcess = () => {
             {processSteps.map((step, index) => (
               <div 
                 key={index} 
-                ref={el => stepRefs.current[index] = el}
                 className="text-center p-6"
               >
                 <div className="flex justify-center items-center mb-6">

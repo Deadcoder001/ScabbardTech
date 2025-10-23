@@ -4,7 +4,7 @@ import BlurText from '../components/BlurText.jsx';
 import LogoLoopSection from '../components/LogoLoopSection';
 import WhyChooseUs from '../components/WhyChooseUs';
 import IndustryExpertise from '../components/IndustryExpertise';
-import StrategicCampaigns from '../components/StrategicCampaigns';
+
 import ServicesSection from '../components/ServicesSection';
 import WhyScabbardTech from '../components/WhyScabbardTech';
 import CreativeSolutions from '../components/CreativeSolutions.jsx';
@@ -68,21 +68,23 @@ function HomePage({ setQuoteOpen }) {
                 </div>
             </div>
             {/* Sections */}
-            <LogoLoopSection />
+
             <WhyChooseUs />
             <IndustryExpertise />
             <ServicesSection />
+            <LogoLoopSection />
             <WhyScabbardTech />
-            <CreativeSolutions />
-            <StrategicCampaigns />
+
+            {/* <CreativeSolutions /> */}
+
             <OurProcess />
 
             <StartProject />
-            <BrandDevelopment />
-            <MarketingAdvertising />
+            {/* <BrandDevelopment /> */}
+            {/* <MarketingAdvertising /> */}
             <Testimonials />
             <FAQ />
-			
+            
         </div>
     );
 }

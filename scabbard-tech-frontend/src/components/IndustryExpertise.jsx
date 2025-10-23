@@ -9,7 +9,7 @@ import retailBg from '../assets/ui/retail-ecommerce.jpg';
 import realEstateBg from '../assets/ui/real-estate.jpg';
 import educationBg from '../assets/ui/education.jpg';
 
-// Register the ScrollTrigger plugin
+// Register the GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 // Generic SVG Icon Components (Your existing icon components go here)
@@ -26,10 +26,10 @@ const IconPin = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" fill=
 
 // UPDATED: Added image property to each industry
 const industries = [
-  { name: "FOR HEALTH CARE INDUSTRIES", icon: <IconHealth className="w-14 h-14" />, description: "Tailored digital strategies to connect with patients and build trust in the healthcare sector.", image: healthBg },
-  { name: "FOR RETAIL & ECOMMERCE", icon: <IconCart className="w-14 h-14" />, description: "Creating omnichannel experiences that convert browsers into loyal customers, both online and in-store.", image: retailBg },
-  { name: "FOR REAL ESTATE BUSINESS", icon: <IconBuilding className="w-14 h-14" />, description: "Utilizing virtual tours and digital campaigns to close deals faster in a competitive market.", image: realEstateBg },
-  { name: "FOR EDUCATIONAL INSTITUTES", icon: <IconEducation className="w-14 h-14" />, description: "Engaging students and parents with compelling content and streamlined admissions processes.", image: educationBg },
+  { name: "HEALTH CARE INDUSTRIES", icon: <IconHealth className="w-14 h-14" />, description: "Tailored digital strategies to connect with patients and build trust in the healthcare sector.", image: healthBg },
+  { name: "RETAIL & ECOMMERCE", icon: <IconCart className="w-14 h-14" />, description: "Creating omnichannel experiences that convert browsers into loyal customers, both online and in-store.", image: retailBg },
+  { name: "REAL ESTATE BUSINESS", icon: <IconBuilding className="w-14 h-14" />, description: "Utilizing virtual tours and digital campaigns to close deals faster in a competitive market.", image: realEstateBg },
+  { name: "EDUCATIONAL INSTITUTES", icon: <IconEducation className="w-14 h-14" />, description: "Engaging students and parents with compelling content and streamlined admissions processes.", image: educationBg },
   
 ];
 
@@ -41,37 +41,71 @@ const IndustryExpertise = () => {
   
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (!sectionRef.current || !containerRef.current) return;
-
-      const scrollTween = gsap.to(containerRef.current, {
-        x: () => -(containerRef.current.scrollWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${containerRef.current.scrollWidth - window.innerWidth}`,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-        }
-      });
-
-      // Animate heading and line
-      gsap.fromTo(headingRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: sectionRef.current, start: "top 80%", toggleActions: "play none none reverse" } });
-      gsap.fromTo(lineRef.current, { width: 0 }, { width: "8rem", duration: 1, ease: "power2.inOut", delay: 0.3, scrollTrigger: { trigger: sectionRef.current, start: "top 75%", toggleActions: "play none none reverse" } });
       
-      const cards = gsap.utils.toArray('.industry-item');
-      const indicators = gsap.utils.toArray('.indicator-line');
+      // Animate heading and line (common for both mobile and desktop)
+      gsap.fromTo(headingRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: sectionRef.current, start: "top 80%", toggleActions: "play none none reverse" } });
+      gsap.fromTo(lineRef.current, { width: 0 }, { width: "8rem", duration: 1, ease: "power2.inOut", delay: 0.2, scrollTrigger: { trigger: sectionRef.current, start: "top 75%", toggleActions: "play none none reverse" } });
 
-      cards.forEach((card, index) => {
-        const indicator = indicators[index];
-        ScrollTrigger.create({
-          trigger: card,
-          containerAnimation: scrollTween,
-          start: "left center",
-          end: "right center",
-          toggleClass: { targets: [card, indicator], className: "is-active" },
-        });
+      // --- Responsive Animations ---
+      ScrollTrigger.matchMedia({
+        
+        // --- Desktop View (Horizontal Scroll) ---
+        "(min-width: 768px)": function() {
+          const scrollTween = gsap.to(containerRef.current, {
+            x: () => -(containerRef.current.scrollWidth - window.innerWidth),
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: () => `+=${containerRef.current.scrollWidth - window.innerWidth}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            }
+          });
+
+          const cards = gsap.utils.toArray('.industry-item');
+          const indicators = gsap.utils.toArray('.indicator-line');
+          gsap.set(cards, { autoAlpha: 0, scale: 0.7, y: 50 });
+
+          cards.forEach((card, index) => {
+            const indicator = indicators[index];
+            gsap.to(card, {
+              autoAlpha: 1, scale: 1, y: 0, duration: 0.8, ease: 'power3.out',
+              scrollTrigger: {
+                trigger: card,
+                containerAnimation: scrollTween,
+                start: "left 85%",
+                toggleActions: "play reverse play reverse",
+              },
+            });
+            ScrollTrigger.create({
+              trigger: card,
+              containerAnimation: scrollTween,
+              start: "left center",
+              end: "right center",
+              toggleClass: { targets: [card, indicator], className: "is-active" },
+            });
+          });
+        },
+
+        // --- Mobile View (Vertical Stack) ---
+        "(max-width: 767px)": function() {
+          const cards = gsap.utils.toArray('.industry-item');
+          cards.forEach(card => {
+            gsap.fromTo(card, 
+              { autoAlpha: 0, y: 50, scale: 0.9 }, 
+              { 
+                autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: 'power3.out',
+                scrollTrigger: {
+                  trigger: card,
+                  start: 'top 85%',
+                  toggleActions: 'play none none reverse'
+                }
+              }
+            );
+          });
+        }
       });
     }, sectionRef);
     
@@ -81,7 +115,7 @@ const IndustryExpertise = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="h-screen bg-gray-50 text-gray-800 overflow-hidden"
+      className="bg-gray-50 text-gray-800 overflow-hidden md:h-screen"
     >
       <div className="pt-24 px-6 h-full flex flex-col">
         {/* Heading Section */}
@@ -98,22 +132,20 @@ const IndustryExpertise = () => {
           />
         </div>
         
-        {/* Horizontal Scrolling Container */}
+        {/* Horizontal/Vertical Scrolling Container */}
         <div 
           ref={containerRef}
-          className="industry-container flex py-10 items-center space-x-10" // Added items-center and increased spacing
+          className="industry-container md:flex md:py-10 md:items-center md:space-x-10"
           style={{ 
             width: 'fit-content',
-            // UPDATED: The padding calculation centers a 450px card
-            paddingLeft: 'calc(50vw - 225px)', 
-            paddingRight: 'calc(50vw - 225px)' 
+            paddingLeft: 'calc(50vw - 275px)', 
+            paddingRight: 'calc(50vw - 275px)' 
           }}
         >
           {industries.map((industry, index) => (
             <div 
               key={index}
-              className="industry-item flex-shrink-0 group"
-              style={{ width: '450px' }} // UPDATED: Increased card width
+              className="industry-item flex-shrink-0 group w-full md:w-[550px] mb-8 md:mb-0"
             >
               <div
                 className="card-content py-12 px-8 flex flex-col items-center justify-center bg-white border border-gray-700 rounded-2xl shadow-lg transition-all duration-500 ease-in-out relative overflow-hidden"
@@ -121,7 +153,7 @@ const IndustryExpertise = () => {
                   backgroundImage: `linear-gradient(to top, rgba(21, 11, 32, 0.8), rgba(47, 17, 66, 0.6)), url(${industry.image})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  minHeight: '320px' 
+                  minHeight: '380px'
                 }}
               >
                 <div className="icon-wrapper text-gray-300 transition-colors duration-400 mb-6">
@@ -130,7 +162,6 @@ const IndustryExpertise = () => {
                 <h3 className="text-xl md:text-2xl font-normal text-white text-center transition-colors duration-300">
                   {industry.name}
                 </h3>
-                {/* ADDED: Description paragraph */}
                 <p className="description text-center text-gray-200 max-h-0 opacity-0 transition-all duration-500 ease-in-out overflow-hidden">
                   {industry.description}
                 </p>
@@ -139,16 +170,23 @@ const IndustryExpertise = () => {
           ))}
         </div>
 
-        {/* Indicators */}
-        <div className="flex justify-center items-center space-x-3 mt-auto pb-12">
+        {/* Indicators (Desktop Only) */}
+        <div className="hidden md:flex justify-center items-center space-x-3 mt-auto pb-12">
           {industries.map((_, index) => (
             <div key={index} className="indicator-line h-1 w-10 bg-gray-300 rounded-full transition-all duration-400"></div>
           ))}
         </div>
       </div>
       
-      {/* UPDATED: Global styles for the active/expanded state */}
       <style jsx global>{`
+        /* Reset container styles for mobile */
+        @media (max-width: 767px) {
+          .industry-container {
+            width: 100% !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
+        }
         .industry-item.is-active .card-content {
           transform: scale(1.08);
           border-color: #a78bfa; /* A softer purple */

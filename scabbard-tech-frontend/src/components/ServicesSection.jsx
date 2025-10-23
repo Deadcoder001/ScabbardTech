@@ -49,21 +49,27 @@ const ServicesSection = () => {
 					{services.map((service, index) => (
 						<div
 							key={index}
-							className="bg-white border border-gray-200 rounded-2xl p-8 flex flex-col group hover:border-purple-500 hover:shadow-lg transition-all duration-300"
+							className="relative bg-white border border-gray-200 rounded-2xl p-8 flex flex-col group hover:border-purple-500 transition-all duration-300 overflow-hidden"
 						>
-							<h3 className="text-2xl font-medium text-gray-900 mb-4">
-								{service.title}
-							</h3>
-							<p className="text-gray-600 flex-grow">
-								{service.description}
-							</p>
-							<div className="mt-8">
-								<a
-									href="#"
-									className="text-sm font-semibold text-purple-600 group-hover:text-purple-800 transition-colors duration-300"
-								>
-									KNOW MORE &rarr;
-								</a>
+							{/* Background Reveal Element */}
+							<div className="absolute inset-0 bg-purple-600 transform origin-bottom scale-y-0 transition-transform duration-300 ease-in-out group-hover:scale-y-100 z-0"></div>
+
+							{/* Content Container */}
+							<div className="relative z-10 flex flex-col flex-grow">
+								<h3 className="text-2xl font-medium text-gray-900 mb-4 group-hover:text-white transition-colors duration-300">
+									{service.title}
+								</h3>
+								<p className="text-gray-600 flex-grow group-hover:text-purple-100 transition-colors duration-300">
+									{service.description}
+								</p>
+								<div className="mt-8">
+									<a
+										href="#"
+										className="text-sm font-semibold text-purple-600 group-hover:text-white transition-colors duration-300"
+									>
+										KNOW MORE &rarr;
+									</a>
+								</div>
 							</div>
 						</div>
 					))}
