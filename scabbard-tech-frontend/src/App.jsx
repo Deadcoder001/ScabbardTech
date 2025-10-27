@@ -10,6 +10,7 @@ import ServicesPage from './pages/ServicesPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
 import CareersPage from './pages/CareersPage.jsx';
 import GalleryPage from './pages/GalleryPage.jsx';
+import CustomCursor from './components/CustomCursor.jsx'; // Import the cursor
 
 import './App.css';
 
@@ -55,10 +56,12 @@ function App() {
 
     return (
         <div
+            className="hide-cursor" // Hide the default cursor globally
             style={{
                 fontFamily: "'Inter', 'Montserrat', 'Nunito', 'Helvetica Neue', Arial, sans-serif",
             }}
         >
+            <CustomCursor /> {/* Add the custom cursor here */}
             <CardNav 
                 logo="/scabbardtech.png" 
                 items={navItems}

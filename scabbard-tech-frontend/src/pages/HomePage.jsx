@@ -14,6 +14,7 @@ import BrandDevelopment from '../components/BrandDevelopment.jsx';
 import MarketingAdvertising from '../components/MarketingAdvertising.jsx';
 import FAQ from '../components/FAQ.jsx';
 import StartProject from '../components/StartProject.jsx';
+import GalleryPreview from '../components/GalleryPreview'; // Added import
 import '../App.css';
 
 function HomePage({ setQuoteOpen }) {
@@ -48,19 +49,19 @@ function HomePage({ setQuoteOpen }) {
                     <div className="flex flex-wrap justify-center gap-4 mt-8 pointer-events-auto">
                         <a
                             href="tel:+917002390792"
-                            className="px-6 py-2 rounded-full border border-white bg-white text-black font-semibold backdrop-blur-md hover:bg-opacity-80 transition"
+                            className="px-6 py-2 rounded-full border border-white bg-white text-black font-semibold backdrop-blur-md hover:bg-opacity-80 transition cursor-hover-target"
                         >
                             Contact Us
                         </a>
                         <button
                             onClick={() => setQuoteOpen(true)}
-                            className="px-6 py-2 rounded-full border border-white bg-transparent text-white font-semibold backdrop-blur-md hover:bg-purple-500 hover:border-purple-500 transition"
+                            className="px-6 py-2 rounded-full border border-white bg-transparent text-white font-semibold backdrop-blur-md hover:bg-purple-500 hover:border-purple-500 transition cursor-hover-target"
                         >
                             Get Free SEO Audit
                         </button>
                         <Link
                             to="/about"
-                            className="px-6 py-2 rounded-full border border-white bg-white text-black font-semibold backdrop-blur-md hover:bg-opacity-80 transition"
+                            className="px-6 py-2 rounded-full border border-white bg-white text-black font-semibold backdrop-blur-md hover:bg-opacity-80 transition cursor-hover-target"
                         >
                             ABOUT US
                         </Link>
@@ -75,11 +76,13 @@ function HomePage({ setQuoteOpen }) {
             <LogoLoopSection />
             <WhyScabbardTech />
 
+
             {/* <CreativeSolutions /> */}
 
             <OurProcess />
 
             <StartProject />
+            <GalleryPreview />
             {/* <BrandDevelopment /> */}
             {/* <MarketingAdvertising /> */}
             <Testimonials />

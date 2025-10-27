@@ -35,7 +35,7 @@ const services = [
 
 const ServicesSection = () => {
 	return (
-		<section className="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
+		<section className="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8" >
 			<div className="max-w-7xl mx-auto">
 				<div className="text-center mb-16">
 					<h2 className="text-4xl md:text-5xl font-medium text-gray-900">
@@ -49,7 +49,7 @@ const ServicesSection = () => {
 					{services.map((service, index) => (
 						<div
 							key={index}
-							className="relative bg-white border border-gray-200 rounded-2xl p-8 flex flex-col group hover:border-purple-500 transition-all duration-300 overflow-hidden"
+							className="relative bg-white border border-gray-200 rounded-2xl p-8 flex flex-col group hover:border-purple-500 transition-all duration-300 overflow-hidden cursor-hover-target"
 						>
 							{/* Background Reveal Element */}
 							<div className="absolute inset-0 bg-purple-600 transform origin-bottom scale-y-0 transition-transform duration-300 ease-in-out group-hover:scale-y-100 z-0"></div>

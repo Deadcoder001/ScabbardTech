@@ -66,19 +66,27 @@ const IndustryExpertise = () => {
 
           const cards = gsap.utils.toArray('.industry-item');
           const indicators = gsap.utils.toArray('.indicator-line');
-          gsap.set(cards, { autoAlpha: 0, scale: 0.7, y: 50 });
+          
+          // Set initial state for all cards EXCEPT the first one
+          gsap.set(cards.slice(1), { autoAlpha: 0, scale: 0.7, y: 50 });
 
           cards.forEach((card, index) => {
             const indicator = indicators[index];
-            gsap.to(card, {
-              autoAlpha: 1, scale: 1, y: 0, duration: 0.8, ease: 'power3.out',
-              scrollTrigger: {
-                trigger: card,
-                containerAnimation: scrollTween,
-                start: "left 85%",
-                toggleActions: "play reverse play reverse",
-              },
-            });
+            
+            // Only apply the reveal animation to cards after the first one
+            if (index > 0) {
+              gsap.to(card, {
+                autoAlpha: 1, scale: 1, y: 0, duration: 0.8, ease: 'power3.out',
+                scrollTrigger: {
+                  trigger: card,
+                  containerAnimation: scrollTween,
+                  start: "left 85%",
+                  toggleActions: "play reverse play reverse",
+                },
+              });
+            }
+
+            // The active state trigger applies to all cards
             ScrollTrigger.create({
               trigger: card,
               containerAnimation: scrollTween,
@@ -92,7 +100,10 @@ const IndustryExpertise = () => {
         // --- Mobile View (Vertical Stack) ---
         "(max-width: 767px)": function() {
           const cards = gsap.utils.toArray('.industry-item');
-          cards.forEach(card => {
+          cards.forEach((card, index) => {
+            // Skip the animation for the first card, making it visible by default
+            if (index === 0) return;
+
             gsap.fromTo(card, 
               { autoAlpha: 0, y: 50, scale: 0.9 }, 
               { 
@@ -145,7 +156,7 @@ const IndustryExpertise = () => {
           {industries.map((industry, index) => (
             <div 
               key={index}
-              className="industry-item flex-shrink-0 group w-full md:w-[550px] mb-8 md:mb-0"
+              className="industry-item flex-shrink-0 group w-full md:w-[550px] mb-8 md:mb-0 cursor-hover-target"
             >
               <div
                 className="card-content py-12 px-8 flex flex-col items-center justify-center bg-white border border-gray-700 rounded-2xl shadow-lg transition-all duration-500 ease-in-out relative overflow-hidden"

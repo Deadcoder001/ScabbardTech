@@ -15,14 +15,37 @@ import img4 from './assets/gallery/Scabbardtech-Portfolio-8-e1736232374904.png';
 import img5 from './assets/gallery/Scabbardtech-Portfolio-9-e1736232806709.png';
 import img6 from './assets/gallery/Scabbardtech-Portfolio-10-e1736232954573.png';
 import img7 from './assets/gallery/Scabbardtech-Portfolio-11-e1736233048510.png';
+import img8 from './assets/gallery/PHOTO-2025-10-23-12-47-35 2.jpg';
+import img9 from './assets/gallery/PHOTO-2025-10-23-12-47-35.jpg';
+import img10 from './assets/gallery/PHOTO-2025-10-23-12-47-36 2.jpg';
+import img11 from './assets/gallery/PHOTO-2025-10-23-12-47-37 2.jpg';
+import img12 from './assets/gallery/PHOTO-2025-10-23-12-47-37.jpg';
+import img13 from './assets/gallery/PHOTO-2025-10-23-12-58-37.jpg';
+import img14 from './assets/gallery/PHOTO-2025-10-23-12-58-47.jpg';
+import img15 from './assets/gallery/PHOTO-2025-10-23-12-59-52.jpg';
+import img16 from './assets/gallery/PHOTO-2025-10-23-12-59-53.jpg';
+import img17 from './assets/gallery/PHOTO-2025-10-23-13-01-08.jpg';
+import img18 from './assets/gallery/PHOTO-2025-10-23-13-19-45.jpg';
+
+
 // --- Step 3: Add your image data to this array ---
 export const galleryImages = [
-  // Using placeholder URLs until local images are added
-  { src: img1, category: 'Logo Design' },
-  { src: img2, category: 'Logo Design' },
-  { src: img3, category: 'Mascot Design' },
-  { src: img4, category: 'Mascot Design' },
-  { src: img5, category: 'Social Media' },
-  { src: img6, category: 'Social Media' },
-  { src: img7, category: 'Packaging Design' },
+  { src: img1, category: 'Logo Design', type: 'image' },
+  { src: img2, category: 'Logo Design', type: 'image' },
+  { src: img3, category: 'Mascot Design', type: 'image' },
+  { src: img4, category: 'Mascot Design', type: 'image' },
+  { src: img5, category: 'Social Media', type: 'image' },
+  { src: img6, category: 'Social Media', type: 'image' },
+  { src: img7, category: 'Packaging Design', type: 'image' },
+  { src: img8, category: 'Social Media', type: 'image' },
+  { src: img9, category: 'Social Media', type: 'image' },
+  { src: img10, category: 'Social Media', type: 'image' },
+  { src: img11, category: 'Social Media', type: 'image' },
+  { src: img12, category: 'Social Media', type: 'image' },
+  { src: img13, category: 'Social Media', type: 'image' },
+  { src: img14, category: 'Social Media', type: 'image' },
+  { src: img15, category: 'Social Media', type: 'image' },
+  { src: img16, category: 'Social Media', type: 'image' },
+  { src: img17, category: 'Social Media', type: 'image' },
+  { src: img18, category: 'Social Media', type: 'image' },
 ];

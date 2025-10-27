@@ -95,3 +95,58 @@ body {
   transform: scale(1.1);
 }
 
+/* --- Custom Cursor Styles --- */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(139, 92, 246, 0.7); /* purple-500 with opacity */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, width, height, background-color;
+}
+
+.cursor-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937; /* gray-800 */
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+  animation-delay: 0.1s;
+}
+
+/* New styles for the heart icon in the cursor */
+.cursor-icon-heart {
+  opacity: 0;
+  transform: scale(0.5);
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 0.1s;
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Hide the default cursor when hovering over elements that trigger the custom cursor */
+.hide-cursor {
+  cursor: none;
+}
+

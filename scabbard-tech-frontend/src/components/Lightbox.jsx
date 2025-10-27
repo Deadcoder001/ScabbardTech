@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { GoX } from 'react-icons/go';
 
-const Lightbox = ({ image, onClose }) => {
+const Lightbox = ({ item, onClose }) => {
   const lightboxRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -15,7 +15,7 @@ const Lightbox = ({ image, onClose }) => {
 
     window.addEventListener('keydown', handleKeyDown);
 
-    if (image) {
+    if (item) {
       document.body.style.overflow = 'hidden';
       gsap.to(lightboxRef.current, { autoAlpha: 1, duration: 0.3 });
       gsap.fromTo(containerRef.current, { scale: 0.95 }, { scale: 1, duration: 0.3, ease: 'power2.out' });
@@ -27,11 +27,13 @@ const Lightbox = ({ image, onClose }) => {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'auto';
     };
-  }, [image, onClose]);
+  }, [item, onClose]);
 
   const handleClose = () => {
     gsap.to(lightboxRef.current, { autoAlpha: 0, duration: 0.3, onComplete: onClose });
   };
+
+  if (!item) return null;
 
   return (
     <div
@@ -45,17 +47,29 @@ const Lightbox = ({ image, onClose }) => {
       />
 
       {/* Image Container */}
-      {image && (
+      {item && (
         <div
           ref={containerRef}
           className="relative max-w-[90vw] max-h-[90vh] bg-white p-2 rounded-lg shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
-          <img
-            src={image.src}
-            alt={image.category}
-            className="max-w-full max-h-full object-contain rounded"
-          />
+          {item.type === 'video' ? (
+            <video
+              src={item.src}
+              controls
+              autoPlay
+              loop
+              className="w-full h-full object-contain rounded-lg"
+            >
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <img
+              src={item.src}
+              alt={item.category || 'Gallery image'}
+              className="max-w-full max-h-full object-contain rounded"
+            />
+          )}
           <button
             onClick={handleClose}
             className="absolute top-4 right-4 w-10 h-10 bg-black/50 rounded-full text-white flex items-center justify-center shadow-lg hover:bg-black/75 transition-all"
